@@ -1,300 +1,377 @@
-'use client';
-
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { useState } from 'react';
-import Image from 'next/image';
+// src/app/page.tsx
+import Image from "next/image";
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [beforeAfterSlide, setBeforeAfterSlide] = useState(50);
-
-  const handleWaitlistSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle waitlist submission
-    alert(`Thanks ${name}! We'll notify you at ${email}`);
-    setName('');
-    setEmail('');
-  };
-
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-[#6A0000] text-[#FAF4EC] min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-64 h-64 border-2 border-[#FAF4EC] rounded-lg rotate-12"></div>
-          <div className="absolute bottom-32 right-20 w-48 h-48 border-2 border-[#FAF4EC] rounded-lg -rotate-6"></div>
-          <div className="absolute top-1/2 left-1/3 w-32 h-32 border-2 border-[#FAF4EC] rounded-lg rotate-45"></div>
-        </div>
-
-        <div className="container mx-auto px-6 py-20 text-center relative z-10">
-          <div className="flex justify-center mb-12">
-            <div className="w-56 h-56 md:w-64 md:h-64 relative">
-              <Image
-                src="/logo.png"
-                alt="Twin Space Logo"
-                fill
-                className="object-fill bg-[#6A0000]"
-                priority
-              />
-            </div>
+    <main className="min-h-screen bg-background text-foreground">
+      {/* HERO / TOP NAV */}
+      <header className="w-full border-b bg-background/70 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Twin Space"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <span className="text-sm font-semibold tracking-tight">
+              Twin Space
+            </span>
           </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight leading-tight">
-            Design your dorm room<br />in minutes.
-          </h1>
-
-          <p className="text-xl md:text-2xl lg:text-3xl mb-4 text-[#FAF4EC]/90 max-w-3xl mx-auto font-light">
-            Drag, drop, and visualize layouts before you buy.
-          </p>
-
-          <p className="text-lg md:text-xl mb-12 text-[#FAF4EC]/80 font-light">
-            Made for Twin XL life.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              size="lg"
-              className="bg-[#FAF4EC] text-[#6A0000] hover:bg-[#FAF4EC]/90 text-lg px-8 py-6 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
-            >
-              Try the Demo
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-2 border-[#FAF4EC] text-[#FAF4EC] hover:bg-[#FAF4EC] hover:text-[#6A0000] text-lg px-8 py-6 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
-            >
-              Join Waitlist
-            </Button>
-          </div>
+          <nav className="hidden gap-5 text-sm md:flex">
+            <a href="#how" className="hover:text-primary">
+              How it works
+            </a>
+            <a href="#features" className="hover:text-primary">
+              Features
+            </a>
+            <a href="#target" className="hover:text-primary">
+              Target Market
+            </a>
+            <a href="#investor" className="hover:text-primary">
+              Investor
+            </a>
+            <a href="#ai" className="hover:text-primary">
+              AI Reflection
+            </a>
+          </nav>
+          <a
+            href="#waitlist"
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          >
+            Join waitlist
+          </a>
         </div>
+      </header>
 
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg className="w-6 h-6 text-[#FAF4EC]/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+      {/* HERO SECTION like your vercel site */}
+      <section className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-14 text-center">
+        <p className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
+          Digital Dorm Designer • Made for Twin XL life
+        </p>
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+          Design your dorm room
+          <br />
+          in minutes.
+        </h1>
+        <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
+          Drag, drop, and visualize layouts before you buy. Built for roommates,
+          tight spaces, and move-in day.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <a
+            href="#demo"
+            className="rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+          >
+            Try the demo
+          </a>
+          <a
+            href="#waitlist"
+            className="rounded-md border px-5 py-2.5 text-sm font-medium"
+          >
+            Join waitlist
+          </a>
         </div>
       </section>
 
-      {/* Feature Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="p-8 border-0 shadow-lg rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white">
-              <div className="w-16 h-16 bg-[#6A0000] rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <svg className="w-8 h-8 text-[#FAF4EC]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zm10 0a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-center text-[#6A0000]">Smart Fit</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Snap-to-grid & auto-spacing for tight dorms.
-              </p>
-            </Card>
-
-            <Card className="p-8 border-0 shadow-lg rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white">
-              <div className="w-16 h-16 bg-[#6A0000] rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <svg className="w-8 h-8 text-[#FAF4EC]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-center text-[#6A0000]">Real Scale</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Furniture sized to dorm-standard dimensions.
-              </p>
-            </Card>
-
-            <Card className="p-8 border-0 shadow-lg rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white">
-              <div className="w-16 h-16 bg-[#6A0000] rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <svg className="w-8 h-8 text-[#FAF4EC]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-center text-[#6A0000]">Share & Print</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Send to roommates or export for move-in planning.
-              </p>
-            </Card>
+      {/* SIMPLE DEMO / READ-ONLY BLOCK */}
+      <section
+        id="demo"
+        className="mx-auto max-w-4xl px-4 pb-14"
+      >
+        <h2 className="text-xl font-semibold tracking-tight mb-3">
+          See it in action
+        </h2>
+        <p className="text-sm text-muted-foreground mb-5">
+          Choose a dorm layout, drag furniture, and share with your roommate.
+        </p>
+        <div className="rounded-xl border bg-card p-5">
+          <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <span className="rounded-md bg-muted px-3 py-1">Bed</span>
+            <span className="rounded-md bg-muted px-3 py-1">Desk</span>
+            <span className="rounded-md bg-muted px-3 py-1">Dresser</span>
+            <span className="rounded-md bg-muted px-3 py-1">Mini fridge</span>
+          </div>
+          <div className="rounded-lg border bg-background p-4 text-sm text-muted-foreground">
+            This is a placeholder for your Phase 2 prototype — in class, you can
+            show a Figma flow or quick video that demonstrates drag-and-drop.
           </div>
         </div>
       </section>
 
-      {/* Demo Preview Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <span className="inline-block bg-[#6A0000] text-[#FAF4EC] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                Live Demo (Read-Only)
-              </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#6A0000] mb-4">
-                See it in action
-              </h2>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
-              <div className="aspect-video bg-gray-100 rounded-2xl relative overflow-hidden border-2 border-gray-200">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="grid grid-cols-8 grid-rows-6 gap-2 w-full h-full p-8">
-                    {/* Grid visualization */}
-                    {Array.from({ length: 48 }).map((_, i) => (
-                      <div key={i} className="border border-gray-200 rounded"></div>
-                    ))}
-
-                    {/* Bed */}
-                    <div className="absolute top-12 left-12 w-32 h-48 bg-[#6A0000] rounded-lg shadow-lg flex items-center justify-center text-[#FAF4EC] font-semibold animate-pulse">
-                      Bed
-                    </div>
-
-                    {/* Desk */}
-                    <div className="absolute top-12 right-12 w-40 h-24 bg-[#6A0000] rounded-lg shadow-lg flex items-center justify-center text-[#FAF4EC] font-semibold animate-pulse" style={{ animationDelay: '0.5s' }}>
-                      Desk
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-[#6A0000] mb-16">
-            How It Works
+      {/* HOW IT WORKS like your live site */}
+      <section
+        id="how"
+        className="bg-muted/40 py-14"
+      >
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-bold tracking-tight mb-6">
+            How it works
           </h2>
-
-          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-[#6A0000] rounded-full flex items-center justify-center text-[#FAF4EC] text-3xl font-bold mx-auto mb-6 shadow-lg">
-                1
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#6A0000]">Choose your room</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Select your dorm dimensions from our database of college floor plans.
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg bg-card p-5 shadow-sm">
+              <p className="text-4xl font-bold text-primary">1</p>
+              <h3 className="mt-3 text-base font-semibold">Choose your room</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Select your dorm from our database of real college floor plans
+                or enter dimensions manually.
               </p>
             </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-[#6A0000] rounded-full flex items-center justify-center text-[#FAF4EC] text-3xl font-bold mx-auto mb-6 shadow-lg">
-                2
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#6A0000]">Drag & drop furniture</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Add beds, desks, and storage with real-world Twin XL dimensions.
+            <div className="rounded-lg bg-card p-5 shadow-sm">
+              <p className="text-4xl font-bold text-primary">2</p>
+              <h3 className="mt-3 text-base font-semibold">
+                Drag &amp; drop furniture
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Everything is scaled to dorm-standard Twin XL and desk sizes,
+                so you know it fits.
               </p>
             </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-[#6A0000] rounded-full flex items-center justify-center text-[#FAF4EC] text-3xl font-bold mx-auto mb-6 shadow-lg">
-                3
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#6A0000]">Share with your roommate</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Collaborate in real-time or export your layout for move-in day.
+            <div className="rounded-lg bg-card p-5 shadow-sm">
+              <p className="text-4xl font-bold text-primary">3</p>
+              <h3 className="mt-3 text-base font-semibold">
+                Share with your roommate
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Collaborate in real time or export your layout for move-in
+                planning.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Before/After Gallery Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-[#6A0000] mb-16">
-            Transform Your Space
-          </h2>
-
-          <div className="max-w-5xl mx-auto">
-            <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="relative aspect-square bg-gray-100 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="w-full h-64 border-4 border-dashed border-gray-300 rounded-2xl flex items-center justify-center mb-4">
-                        <span className="text-gray-400 text-xl font-semibold">Empty Dorm</span>
-                      </div>
-                      <p className="text-gray-500 font-semibold">Before</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="relative aspect-square bg-gradient-to-br from-[#FAF4EC] to-white overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <div className="text-center w-full">
-                      <div className="w-full h-64 bg-white rounded-2xl shadow-lg p-4 mb-4 relative">
-                        <div className="absolute top-4 left-4 w-24 h-32 bg-[#6A0000] rounded-lg"></div>
-                        <div className="absolute top-4 right-4 w-28 h-16 bg-[#6A0000] rounded-lg"></div>
-                        <div className="absolute bottom-4 left-4 w-16 h-16 bg-[#6A0000] rounded-lg"></div>
-                        <div className="absolute bottom-4 right-4 w-20 h-20 bg-[#6A0000] rounded-lg"></div>
-                      </div>
-                      <p className="text-[#6A0000] font-semibold">After</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Waitlist Section */}
-      <section className="py-24 bg-[#6A0000] text-[#FAF4EC]">
-        <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Join the waitlist for early access
-            </h2>
-            <p className="text-xl mb-12 text-[#FAF4EC]/90">
-              Be the first to design your perfect dorm room.
+      {/* FEATURES — rubric wants this */}
+      <section id="features" className="mx-auto max-w-5xl px-4 py-14">
+        <h2 className="text-2xl font-bold tracking-tight mb-2">Features</h2>
+        <p className="text-muted-foreground mb-8">
+          These features directly support the value proposition of reducing
+          move-in stress and wasted spending.
+        </p>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-lg bg-card p-5 shadow-sm">
+            <h3 className="text-sm font-semibold">Smart Fit</h3>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Snap-to-grid &amp; auto-spacing for tight dorms.
             </p>
-
-            <form onSubmit={handleWaitlistSubmit} className="space-y-4">
-              <Input
-                type="text"
-                placeholder="Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="bg-white/10 border-2 border-[#FAF4EC]/30 text-[#FAF4EC] placeholder:text-[#FAF4EC]/60 h-14 text-lg rounded-xl focus:border-[#FAF4EC] focus:ring-[#FAF4EC]"
-              />
-              <Input
-                type="email"
-                placeholder="Your .edu Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                pattern=".*\.edu$"
-                className="bg-white/10 border-2 border-[#FAF4EC]/30 text-[#FAF4EC] placeholder:text-[#FAF4EC]/60 h-14 text-lg rounded-xl focus:border-[#FAF4EC] focus:ring-[#FAF4EC]"
-              />
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full bg-[#FAF4EC] text-[#6A0000] hover:bg-[#FAF4EC]/90 text-lg py-6 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              >
-                Notify Me
-              </Button>
-            </form>
+          </div>
+          <div className="rounded-lg bg-card p-5 shadow-sm">
+            <h3 className="text-sm font-semibold">Real Scale</h3>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Furniture sized to dorm-standard dimensions.
+            </p>
+          </div>
+          <div className="rounded-lg bg-card p-5 shadow-sm">
+            <h3 className="text-sm font-semibold">AI Layouts</h3>
+            <p className="mt-2 text-xs text-muted-foreground">
+              AI suggests layouts like “cozy under $200” or “desk by the
+              window.”
+            </p>
+            <p className="mt-2 text-[10px] text-muted-foreground">
+              4IR Tech: Artificial Intelligence
+            </p>
+          </div>
+          <div className="rounded-lg bg-card p-5 shadow-sm">
+            <h3 className="text-sm font-semibold">Share &amp; Print</h3>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Send to roommates or export for move-in planning.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 bg-white border-t border-gray-200">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600">
-            <a href="#" className="hover:text-[#6A0000] transition-colors">Privacy</a>
-            <span className="text-gray-300">·</span>
-            <a href="#" className="hover:text-[#6A0000] transition-colors">Terms</a>
-            <span className="text-gray-300">·</span>
-            <a href="#" className="hover:text-[#6A0000] transition-colors">Contact</a>
-            <span className="text-gray-300">·</span>
-            <span>© 2025 Twin Space</span>
+      {/* TARGET MARKET — rubric wants this */}
+      <section id="target" className="bg-muted/30 py-14">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            Target Market
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            We serve U.S. college students — especially first-year dorm
+            residents — who spend $800–$1,200 on move-in and want their space to
+            match their personality.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-lg bg-card p-5 shadow-sm">
+              <h3 className="text-sm font-semibold">Primary Customer</h3>
+              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                <li>• Incoming freshmen (17–19)</li>
+                <li>• Highly active on TikTok / IG / Pinterest</li>
+                <li>• Care about aesthetic + function</li>
+                <li>• Want to know “what fits” before buying</li>
+              </ul>
+            </div>
+            <div className="rounded-lg bg-card p-5 shadow-sm">
+              <h3 className="text-sm font-semibold">
+                Why it solves their problem
+              </h3>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Move-in is stressful, unclear, and expensive. Designing first
+                and buying second removes uncertainty and reduces wasted spend.
+              </p>
+              <p className="mt-3 text-[10px] text-muted-foreground">
+                (Add primary research from your survey here.)
+              </p>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* INVESTOR MATERIALS */}
+<section id="investor" className="mx-auto max-w-5xl px-4 py-14">
+  <h2 className="text-2xl font-bold tracking-tight mb-3">Investor Materials</h2>
+  <p className="text-muted-foreground mb-6">
+    Explore our final 4impact deliverables — the investor pitch, executive summary, and working prototype demo.
+  </p>
+
+  <div className="grid gap-6 md:grid-cols-3">
+    {/* Pitch Deck */}
+    <div className="rounded-lg bg-card p-5 shadow-sm">
+      <h3 className="text-sm font-semibold">Pitch Deck</h3>
+      <p className="mt-2 text-xs text-muted-foreground">
+        7-minute investor presentation highlighting the problem, solution, market, and business model.
+      </p>
+      <a
+        href="https://www.canva.com/design/DAG3xAfGuog/73-dHlY35dsZeSG-QabZYg/view?utm_content=DAG3xAfGuog&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=haf31ad074e"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 block text-[11px] font-medium text-primary underline"
+      >
+        🔗 View Pitch Deck on Canva →
+      </a>
+    </div>
+
+    {/* Executive Summary */}
+    <div className="rounded-lg bg-card p-5 shadow-sm">
+      <h3 className="text-sm font-semibold">Executive Summary</h3>
+      <p className="mt-2 text-xs text-muted-foreground">
+        One-page overview of the problem, solution, target market, and 4IR integration.
+      </p>
+      <a
+        href="/Bussiness%20Idea%20Pitch.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 block text-[11px] font-medium text-primary underline"
+      >
+        📄 Open Executive Summary (PDF) →
+      </a>
+    </div>
+
+    {/* Prototype */}
+    <div className="rounded-lg bg-card p-5 shadow-sm">
+      <h3 className="text-sm font-semibold">Prototype Demo</h3>
+      <p className="mt-2 text-xs text-muted-foreground">
+        A walkthrough of our digital twin dorm designer prototype — showing how students can scan, design, and shop before move-in.
+      </p>
+      <a
+        href="https://youtu.be/mHC-BsCV8vA"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 block text-[11px] font-medium text-primary underline"
+      >
+        ▶️ Watch Prototype Demo on YouTube →
+      </a>
+    </div>
+  </div>
+
+  {/* Embedded Previews */}
+  <div className="mt-10 space-y-10">
+    {/* Executive Summary Preview */}
+    <div className="rounded-lg border bg-card p-4">
+      <h4 className="text-sm font-semibold mb-2">Executive Summary Preview</h4>
+      <iframe
+        src="/Bussiness%20Idea%20Pitch.pdf"
+        className="h-96 w-full rounded-md border"
+      />
+    </div>
+
+    {/* Embedded Prototype Video */}
+    <div className="rounded-lg border bg-card p-4">
+      <h4 className="text-sm font-semibold mb-2">Prototype Video</h4>
+      <div className="aspect-video w-full rounded-md overflow-hidden border">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/mHC-BsCV8vA"
+          title="Twin Space Prototype"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="h-full w-full"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+      {/* AI REFLECTION — rubric wants this */}
+      <section id="ai" className="bg-muted/40 py-14">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            Learning &amp; Reflection on AI
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Generative AI helped us draft sections quickly, but human editing
+            made it relevant to college students and our specific business idea.
+          </p>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li>
+              <span className="font-semibold text-foreground">
+                Tools used:
+              </span>{" "}
+              ChatGPT (content), image generation for dorm visuals, Next.js AI
+              layout suggestions.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">
+                Strengths:
+              </span>{" "}
+              fast structure, consistent voice, helped match the 4impact rubric.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">
+                Limitations:
+              </span>{" "}
+              AI didn&apos;t know our exact dorm floor plans, so we added those
+              manually.
+            </li>
+            <li>
+              <span className="font-semibold text-foreground">
+                Human input:
+              </span>{" "}
+              we customized the problem statement, target market, and investor
+              content to use our own primary and secondary research.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* WAITLIST / FOOTER */}
+      <section id="waitlist" className="mx-auto max-w-3xl px-4 py-14 text-center">
+        <h2 className="text-2xl font-bold tracking-tight mb-2">
+          Join the waitlist for early access
+        </h2>
+        <p className="text-muted-foreground mb-4">
+          Be the first to design your perfect dorm room.
+        </p>
+        <form className="mx-auto flex max-w-md gap-2">
+          <input
+            type="email"
+            placeholder="you@example.com"
+            className="flex-1 rounded-md border px-3 py-2 text-sm outline-none"
+          />
+          <button
+            type="submit"
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          >
+            Notify me
+          </button>
+        </form>
+      </section>
+
+      <footer className="border-t py-5 text-center text-xs text-muted-foreground">
+        © 2025 Twin Space · Dorm-first design platform · AI + XR
       </footer>
     </main>
   );
