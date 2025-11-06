@@ -76,29 +76,30 @@ export default function Home() {
       </section>
 
       {/* SIMPLE DEMO / READ-ONLY BLOCK */}
-      <section
-        id="demo"
-        className="mx-auto max-w-4xl px-4 pb-14"
-      >
-        <h2 className="text-xl font-semibold tracking-tight mb-3">
-          See it in action
-        </h2>
-        <p className="text-sm text-muted-foreground mb-5">
-          Choose a dorm layout, drag furniture, and share with your roommate.
-        </p>
-        <div className="rounded-xl border bg-card p-5">
-          <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-            <span className="rounded-md bg-muted px-3 py-1">Bed</span>
-            <span className="rounded-md bg-muted px-3 py-1">Desk</span>
-            <span className="rounded-md bg-muted px-3 py-1">Dresser</span>
-            <span className="rounded-md bg-muted px-3 py-1">Mini fridge</span>
-          </div>
-          <div className="rounded-lg border bg-background p-4 text-sm text-muted-foreground">
-            This is a placeholder for your Phase 2 prototype — in class, you can
-            show a Figma flow or quick video that demonstrates drag-and-drop.
-          </div>
-        </div>
-      </section>
+      <section id="demo" className="mx-auto max-w-4xl px-4 pb-14">
+  <h2 className="text-xl font-semibold tracking-tight mb-3">See it in action</h2>
+  <p className="text-sm text-muted-foreground mb-5">
+    Watch how Twin Space lets students visualize their dorm, arrange furniture, and personalize their setup before move-in.
+  </p>
+
+  <div className="rounded-xl border bg-card p-4 shadow-sm">
+    <div className="aspect-video w-full overflow-hidden rounded-md border">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/mHC-BsCV8vA"
+        title="Twin Space Prototype Demo"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="h-full w-full"
+      ></iframe>
+    </div>
+    <p className="mt-3 text-xs text-muted-foreground text-center">
+      <em>Prototype demo built for the 4impact Challenge — showcasing Twin Space’s drag-and-drop dorm designer.</em>
+    </p>
+  </div>
+</section>
 
       {/* HOW IT WORKS like your live site */}
       <section
@@ -211,8 +212,8 @@ export default function Home() {
                 and buying second removes uncertainty and reduces wasted spend.
               </p>
               <p className="mt-3 text-[10px] text-muted-foreground">
-                (Add primary research from your survey here.)
-              </p>
+  Based on our DU student survey (n=56), <span className="font-medium text-foreground">92.9%</span> of respondents said they would use Twin Space if available, and <span className="font-medium text-foreground">78%</span> said it would significantly reduce their move-in day stress.
+            </p>
             </div>
           </div>
         </div>
