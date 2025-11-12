@@ -1,3 +1,9 @@
+import * as React from "react";
+
+type ResizeHandler = (dx: number, dy: number) => void;
+type PointerDivEvent = React.PointerEvent<HTMLDivElement>;
+type Style = React.CSSProperties;
+
 'use client';
 import { motion } from 'framer-motion';
 import { CSSProperties, useMemo } from 'react';
