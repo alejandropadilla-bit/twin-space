@@ -405,11 +405,13 @@ export default function InteractiveDemo(){
   }, [pieces]);
 
   return(
-    <div className="w-full">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
       {/* Toolbar */}
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Interactive Dorm Designer</h2>
-        <div className="flex flex-wrap gap-2">
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight sm:mb-0 mb-2">
+          Interactive Dorm Designer
+        </h2>
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
           {(["Bed","Desk","Chair","Dresser","Bookshelf","Nightstand","Lamp","Rug","Plant"] as FurnitureType[]).map(t=>(
             <button
               key={t}
@@ -524,9 +526,7 @@ export default function InteractiveDemo(){
         </div>
       )}
 
-      {/* Responsive canvas wrapper:
-         - px padding, centered, allows horizontal scroll on very small screens
-      */}
+      {/* Responsive canvas wrapper */}
       <div className="w-full px-2 sm:px-4">
         <div className="w-full overflow-x-auto">
           <div className="w-full flex justify-center">
@@ -534,8 +534,8 @@ export default function InteractiveDemo(){
               ref={canvasRef}
               className="
                 relative
-                min-w-[720px] max-w-[920px] w-full
-                h-[340px] sm:h-[380px] md:h-[420px]
+                min-w-full sm:min-w-[720px] max-w-[920px] w-full
+                h-[60vh] sm:h-[380px] md:h-[420px]
                 rounded-[18px] border bg-white shadow-inner
               "
               style={{
@@ -592,18 +592,18 @@ export default function InteractiveDemo(){
                       </div>
                     </div>
 
-                    {/* label */}
+                    {/* label (hidden on very small screens) */}
                     <div
-                      className="pointer-events-none absolute -bottom-5 left-1/2 -translate-x-1/2 text-[11px] text-[#666] bg-white/85 px-1 rounded"
+                      className="hidden sm:block pointer-events-none absolute -bottom-5 left-1/2 -translate-x-1/2 text-[11px] text-[#666] bg-white/85 px-1 rounded"
                       style={{border:"1px solid #eee"}}
                     >
                       {piece.type}
                     </div>
 
-                    {/* live dimensions when selected */}
+                    {/* live dimensions when selected (hidden on xs) */}
                     {isSelected && (
                       <div
-                        className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 text-[10px] text-[#8a8a8a] bg-white/90 px-1 rounded"
+                        className="hidden sm:block pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 text-[10px] text-[#8a8a8a] bg-white/90 px-1 rounded"
                         style={{ border: "1px solid #eee" }}
                       >
                         {Math.round(w)}×{Math.round(h)} px
