@@ -1,36 +1,38 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// src/app/layout.tsx
 import "./globals.css";
-import ClientBody from "./ClientBody";
-import Script from "next/script";
+import Link from "next/link";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export const metadata: Metadata = {
-  title: "Twin Space - Design Your Dorm Room in Minutes",
-  description: "Drag, drop, and visualize dorm layouts before you buy. Made for Twin XL life.",
+export const metadata = {
+  title: "Twin Space",
+  description: "Dorm-first design platform — AI + XR",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={inter.variable}>
-      <head>
-        <Script
-          crossOrigin="anonymous"
-          src="//unpkg.com/same-runtime/dist/index.global.js"
-        />
-      </head>
-      <body suppressHydrationWarning className="antialiased">
-        <ClientBody>{children}</ClientBody>
+    <html lang="en">
+      <body className="bg-[#edeae1] text-[#1f1f1f]">
+        {/* Render the page content */}
+        {children}
+
+        {/* Global Footer */}
+        <footer className="border-t py-8 text-xs text-[#666]">
+          <div className="mx-auto max-w-6xl px-6 flex flex-wrap gap-6">
+            <Link href="/privacy" className="hover:text-[#6f0500]">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-[#6f0500]">
+              Terms
+            </Link>
+            <a href="#contact" className="hover:text-[#6f0500]">
+              Contact
+            </a>
+          </div>
+        </footer>
       </body>
     </html>
   );
-}
+} 
