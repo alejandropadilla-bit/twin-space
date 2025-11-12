@@ -273,6 +273,21 @@ export default function InteractiveDemo(){
     return () => ro.disconnect();
   },[]);
 
+  /* ↓ Global layout scale for all pieces (0.6–1.1) */
+  const [uiScale, setUiScale] = useState(0.85);
+  const effSize = (piece: Piece, rot = piece.rot ?? 0, scale = piece.scale ?? 1) =>
+    sized(piece.type, rot as 0 | 90 | 180 | 270, scale * uiScale);
+
+  /* helper for presets to keep items in-bounds with current scale/canvas */
+  const clampIntoCanvas = (p: Piece, W: number, H: number): Piece => {
+    const { w, h } = effSize(p);
+    return {
+      ...p,
+      x: clamp(p.x, 0, Math.max(0, W - w)),
+      y: clamp(p.y, 0, Math.max(0, H - h)),
+    };
+  };
+
   /* drag */
   const dragInfo=useRef<{id:number|null;ox:number;oy:number}>({id:null,ox:0,oy:0});
   const onPieceDown=(e:React.PointerEvent<HTMLDivElement>,piece:Piece)=>{
@@ -288,7 +303,7 @@ export default function InteractiveDemo(){
     const d=dragInfo.current;if(!d.id)return;
     const cRect=(canvasRef.current as HTMLDivElement).getBoundingClientRect();
     const piece=pieces.find(p=>p.id===d.id)!;
-    const {w,h}=sized(piece.type,piece.rot||0,piece.scale ?? 1);
+    const {w,h}=effSize(piece);
     let nx=e.clientX-cRect.left-d.ox;
     let ny=e.clientY-cRect.top -d.oy;
     nx=snap(clamp(nx,0,cRect.width -w));
@@ -318,7 +333,7 @@ export default function InteractiveDemo(){
       e.preventDefault();
       setPieces(p=>p.map(it=>{
         if(it.id!==selectedId) return it;
-        const {w,h}=sized(it.type,it.rot||0,it.scale ?? 1);
+        const {w,h}=effSize(it);
         return {
           ...it,
           x: clamp(snap(it.x+dx), 0, Math.max(0, canvasWH.w - w)),
@@ -333,8 +348,8 @@ export default function InteractiveDemo(){
   /* controls */
   const addPiece=(t:FurnitureType)=>{
     const id=idCounter.current++;
-    const scale = 1.0;
-    const { w, h } = sized(t, 0, scale);
+    const scale = 0.85; // smaller default
+    const { w, h } = sized(t, 0, scale * uiScale);
     const x=clamp(30+id*8, 0, Math.max(0, canvasWH.w-w));
     const y=clamp(30+id*8, 0, Math.max(0, canvasWH.h-h));
     setPieces(p=>[
@@ -351,7 +366,7 @@ export default function InteractiveDemo(){
     setPieces(p=>p.map(x=>{
       if(x.id!==selectedId) return x;
       const rot = (((x.rot||0)+90)%360) as 0|90|180|270;
-      const { w, h } = sized(x.type, rot, x.scale ?? 1);
+      const { w, h } = effSize(x, rot, x.scale ?? 1);
       return {
         ...x,
         rot,
@@ -369,7 +384,7 @@ export default function InteractiveDemo(){
   const updateType=(id:number,t:FurnitureType)=>setPieces(p=>p.map(x=>{
     if(x.id!==id) return x;
     const scale = x.scale ?? 1;
-    const { w, h } = sized(t, x.rot||0, scale);
+    const { w, h } = sized(t, x.rot||0, scale * uiScale);
     return {
       ...x,
       type:t,
@@ -381,7 +396,7 @@ export default function InteractiveDemo(){
   const updateScale=(id:number,scale:number)=>setPieces(p=>p.map(x=>{
     if(x.id!==id) return x;
     const s = clamp(scale, SCALE_MIN, SCALE_MAX);
-    const { w, h } = sized(x.type, x.rot||0, s);
+    const { w, h } = effSize({ ...x, scale: s });
     return {
       ...x,
       scale: s,
@@ -464,7 +479,7 @@ export default function InteractiveDemo(){
           {/* Presets */}
           <button
             onClick={() => {
-              const preset = presetCozySuite(canvasWH.w, canvasWH.h);
+              const preset = presetCozySuite(canvasWH.w, canvasWH.h).map(p => clampIntoCanvas(p, canvasWH.w, canvasWH.h));
               setPieces(preset); setSelectedId(null);
               idCounter.current = preset.length + 1;
               zCounter.current  = Math.max(...preset.map(p => p.z ?? 0)) + 1;
@@ -476,7 +491,7 @@ export default function InteractiveDemo(){
           </button>
           <button
             onClick={() => {
-              const preset = presetStudyFocus(canvasWH.w, canvasWH.h);
+              const preset = presetStudyFocus(canvasWH.w, canvasWH.h).map(p => clampIntoCanvas(p, canvasWH.w, canvasWH.h));
               setPieces(preset); setSelectedId(null);
               idCounter.current = preset.length + 1;
               zCounter.current  = Math.max(...preset.map(p => p.z ?? 0)) + 1;
@@ -488,7 +503,7 @@ export default function InteractiveDemo(){
           </button>
           <button
             onClick={() => {
-              const preset = presetLShape(canvasWH.w, canvasWH.h);
+              const preset = presetLShape(canvasWH.w, canvasWH.h).map(p => clampIntoCanvas(p, canvasWH.w, canvasWH.h));
               setPieces(preset); setSelectedId(null);
               idCounter.current = preset.length + 1;
               zCounter.current  = Math.max(...preset.map(p => p.z ?? 0)) + 1;
@@ -498,6 +513,21 @@ export default function InteractiveDemo(){
           >
             Preset: L-Shape
           </button>
+
+          {/* Global UI scale */}
+          <div className="flex items-center gap-2 ml-1">
+            <span className="text-xs text-[#666]">Layout size</span>
+            <input
+              type="range"
+              min={0.6}
+              max={1.1}
+              step={0.05}
+              value={uiScale}
+              onChange={(e) => setUiScale(parseFloat(e.target.value))}
+              className="h-2"
+              title="Scale entire layout"
+            />
+          </div>
         </div>
       </div>
 
@@ -555,8 +585,7 @@ export default function InteractiveDemo(){
               onPointerLeave={onCanvasUp}
             >
               {renderList.map(piece=>{
-                const scale = piece.scale ?? 1;
-                const {w,h}=sized(piece.type,piece.rot||0,scale);
+                const {w,h}=effSize(piece);
                 const isSelected = selectedId===piece.id;
                 const isDragging = draggingId===piece.id;
 

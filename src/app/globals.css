@@ -71,3 +71,29 @@
     scroll-behavior: smooth;
   }
 }
+/* --- Mobile polish ------------------------------------------------------ */
+
+/* 1) Stop iOS from randomly resizing text */
+html { -webkit-text-size-adjust: 100%; }
+
+/* 2) Remove the gray tap highlight on iOS/Android */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* 3) Prevent rubber-band/gesture conflicts inside the canvas area */
+.interactive-canvas {
+  /* allow pinch-to-zoom on the canvas wrapper */
+  touch-action: pinch-zoom;
+  overscroll-behavior: contain; /* keeps the page from scrolling while interacting */
+}
+
+/* 4) Make draggable items feel crisp on touch (no text selection/long-press) */
+.draggable-piece,
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* disables the copy/lookup bubble on iOS */
+  cursor: grab;
+}
+
+/* 5) Prevent iOS auto-zoom when focusing small inputs (keeps viewport stable) */
+input, select, textarea, button { font-size: 16px; }
